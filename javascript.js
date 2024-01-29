@@ -55,7 +55,7 @@ function updateScore(winner, player, comp) {
     else if (winner === "computer") { 
 
         compScore++;
-
+        // If computer score is 5 print winner
         if (compScore === 5) {
             score.textContent = "Player: " + playerScore + " " + "Computer: " + compScore;
             playerScore = 0;
