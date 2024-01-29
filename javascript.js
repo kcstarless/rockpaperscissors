@@ -1,14 +1,16 @@
 // game variables. 
-let numberOfGames = 5;
 let playerScore = 0;
 let compScore = 0;
-let playerHand = "";
+
 
 let buttons = document.querySelector(".buttons");
+let results = document.querySelector(".result");
+let score = document.querySelector(".score");
 
 buttons.addEventListener("click", (event) => {
     if (event.target.tagName === "BUTTON") {
-        alert(event.target.value);
+        let playerHand = event.target.value.toLowerCase();
+        playGame (playerHand, getComputerChoice());
     }
 });
 
@@ -18,47 +20,51 @@ function getComputerChoice() {
     let compHand = choiceOfHand[Math.floor(Math.random() * 3)];
     return compHand.toLowerCase();
 }
-// get player choice
-// function getPlayerChoice() {
-//     let playerHand = rpsBtn.value;
-//     alert(playerHand);
-//     return playerHand.toLowerCase(); 
-// }
 
 function playGame(player, comp) {
     // if tie play the game again
     if (player === comp) {
-        console.log("It's a Tie! Play again.");
-        playGame(getPlayerChoice(), getComputerChoice());
+        results.textContent = "It's a Tie! Play again.";
     }
     else if ((player === "rock" && comp === "scissors") ||
              (player === "paper" && comp === "rock") ||
              (player === "scissors" && comp === "paper")) {
 
-        console.log("You Win! " + player + " beats " + comp);
-        // update player score 
-        playerScore++;
+        updateScore("player", player, comp);
     }
     else {
-        console.log("You Lose! " + comp + " beats " + player);
-        // update computer score
-        compScore++;
-    }    
+        updateScore("computer", player, comp);
+    }
 }
+// update player and computer score
+function updateScore(winner, player, comp) {
+    if (winner === "player") {
+        playerScore++;
+        // If player score is 5 print winner
+        if (playerScore === 5) {
+            score.textContent = "Player: " + playerScore + " " + "Computer: " + compScore;
+            playerScore = 0;
+            compScore =0;
+            results.textContent = "Player Wins!";
+        }
+        else {
+            results.textContent = "You Win! " + player + " beats " + comp;
+            score.textContent = "Player: " + playerScore + " " + "Computer: " + compScore;
+        }
+    }
+    else if (winner === "computer") { 
 
-// function game() {
-//     // run the game based on numberOfGames
-//     for (let i = 0; i < numberOfGames; i++ ) {
-//         playGame(getPlayerChoice(), getComputerChoice());
-//     }    
-//     // prints the winner based on the game score
-//     if (playerScore > compScore) {
-//         console.log("Player Wins!: Score: " + playerScore + " | " + compScore);
-//     }
-//     else {
-//         console.log("Computer Wins!: Score: " + compScore + " | " + playerScore);
-//     }
-// }
-// // runs the game()
+        compScore++;
 
-// game();
+        if (compScore === 5) {
+            score.textContent = "Player: " + playerScore + " " + "Computer: " + compScore;
+            playerScore = 0;
+            compScore = 0;
+            results.textContent = "Computer wins!"
+        }
+        else {
+            results.textContent = "You Lose! " + comp + " beats " + player; 
+            score.textContent = "Player: " + playerScore + " " + "Computer: " + compScore;  
+        }
+    }
+}
