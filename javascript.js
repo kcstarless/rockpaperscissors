@@ -2,6 +2,15 @@
 let numberOfGames = 5;
 let playerScore = 0;
 let compScore = 0;
+let playerHand = "";
+
+let buttons = document.querySelector(".buttons");
+
+buttons.addEventListener("click", (event) => {
+    if (event.target.tagName === "BUTTON") {
+        alert(event.target.value);
+    }
+});
 
 // get computer choice
 function getComputerChoice() {
@@ -10,14 +19,11 @@ function getComputerChoice() {
     return compHand.toLowerCase();
 }
 // get player choice
-function getPlayerChoice() {
-    // set the initial value to null
-    let playerHand = null;
-    while (playerHand === null){
-        playerHand = prompt("Rock Paper or Scissors?");
-    }
-    return playerHand.toLowerCase(); 
-}
+// function getPlayerChoice() {
+//     let playerHand = rpsBtn.value;
+//     alert(playerHand);
+//     return playerHand.toLowerCase(); 
+// }
 
 function playGame(player, comp) {
     // if tie play the game again
@@ -40,20 +46,19 @@ function playGame(player, comp) {
     }    
 }
 
-function game() {
-    // run the game based on numberOfGames
-    for (let i = 0; i < numberOfGames; i++ ) {
-        playGame(getPlayerChoice(), getComputerChoice());
-    }    
-    // prints the winner based on the game score
-    if (playerScore > compScore) {
-        console.log("Player Wins!: Score: " + playerScore + " | " + compScore);
-    }
-    else {
-        console.log("Computer Wins!: Score: " + compScore + " | " + playerScore);
-    }
-}
-// runs the game()
-game();
- 
+// function game() {
+//     // run the game based on numberOfGames
+//     for (let i = 0; i < numberOfGames; i++ ) {
+//         playGame(getPlayerChoice(), getComputerChoice());
+//     }    
+//     // prints the winner based on the game score
+//     if (playerScore > compScore) {
+//         console.log("Player Wins!: Score: " + playerScore + " | " + compScore);
+//     }
+//     else {
+//         console.log("Computer Wins!: Score: " + compScore + " | " + playerScore);
+//     }
+// }
+// // runs the game()
 
+// game();
